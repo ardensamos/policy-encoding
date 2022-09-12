@@ -59,5 +59,5 @@ function bin_length_helper(x, bits) {
     var y = "0".repeat(add_zeros);
     return y + x;
 }
-
-console.log(id_maker(1, 1, 1));
+//16, 128, 256
+console.log(id_maker(15, 98, 80));
