@@ -13,50 +13,51 @@ function intToBase35p1(x) {
     return result.join('');
 }
 
-function id_maker(type) {
+function id_maker(type, partner, region) {
     const type_bit = 4;
     const partner_bit = 7;
     const region_bit = 8;
+    const d = new Date();
     
-    var type_bin = type.toString(2);
+    //convert to binary 
+    var type_bin = bin_length_helper(type.toString(2), type_bit);
+    var partner_bin = bin_length_helper(partner.toString(2), partner_bit);
+    var region_bin = bin_length_helper(region.toString(2), region_bit);
     
-    return type_bin;
+    var bin_str = type_bin + partner_bin + region_bin;
+
+    //compute odd bit parity 
+    if (sumStr(bin_str) % 2) {
+        bin_str = bin_str + '0';
+    } 
+    else {
+        bin_str = bin_str + '1';
+    }
+
+    var encode = intToBase35p1(parseInt(bin_str, 2));
+    
+    var time_num = d.getTime();
+    var time_encode = intToBase35p1(time_num);
+
+    return encode + '-' + time_encode;
 
 }
 
-/*
-
-id_maker <- function(type, partner, region){
-  # makes a unique 12 digit, base 36 ID
-  # type, partner, region are all int, returns a string
-  
-  # makes string without parity bit
-  bin_str <- paste("0", 
-                   intToBin(type, 4), 
-                   intToBin(partner, 7), 
-                   intToBin(region, 8), sep = "")
-  
-  sum_bin_str <- sum(as.numeric(strsplit(bin_str, "")[[1]]))
-  
-  # adds partiy bit to end
-  if((sum_bin_str %% 2) == 0) {
-    parity_bit <- 1
-  } else {
-    parity_bit <- 0
-  }
-  
-  bin_str <- paste(bin_str, parity_bit, sep="")
-  
-  # encodes type, partner, region in 4 digit base 36
-  encode <- intToBase35p1(convert(bin_str, base=2L))
-  
-  # converts time to num
-  time_num <- format(round(as.numeric(Sys.time())*1000, 13), scientific = FALSE)
-
-  # converts time_num to 8 digit base 36
-  time_id <- intToBase35p1(convert(time_num, base=10L))
-  
-  return(paste(encode, time_id, sep="-"))
+function sumStr(str){
+    //fucntion used to compute the sum of the binary string for parity validation 
+    let strArr = str.split('');
+    let sum = strArr.reduce(function(total, num){
+      return parseFloat(total) + parseFloat(num);
+    });
+    return sum;
 }
-*/
-console.log(id_maker(100));
+
+function bin_length_helper(x, bits) {
+    //adds zeros to front of strings to get desired length 
+    var add_zeros = Math.abs(bits - x.length);
+
+    var y = "0".repeat(add_zeros);
+    return y + x;
+}
+
+console.log(id_maker(1, 1, 1));
