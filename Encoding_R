@@ -1,0 +1,70 @@
+intToBase35p1 <- function(int) {
+  # converts a base 10 number to base 35, then increments by 1 (avoid zero/O confusion)
+  
+  num_let <- c(as.character(0:9),LETTERS)
+  result <- character(10)
+  i <- 1L
+  
+  while (int > 0) {
+    result[11-i] <- num_let[int %% 35L + 1L + 1L] # extra plus 1 here is incrementing
+    i <- i + 1L
+    int <- int %/% 35L
+  }
+  return(paste(result, sep="", collapse=""))
+}
+
+intToBin <- function(int, bit_len) {
+  # converts a base 10 number to base 2, bit_len is desired length of binary number (to add zeros at start)
+  
+  num_let <- as.character(0:1)
+  result <- rep(c("0"), times=bit_len)
+  i <- 1L
+  
+  while (int > 0) {
+    result[bit_len+1-i] <- num_let[int %% 2L + 1L]
+    i <- i + 1L
+    int <- int %/% 2L
+  }
+  return(paste(result, sep="", collapse=""))
+}
+
+convert <- function(x, base=10L) {
+  # converts a number from a chosen base to base 10, input is a string
+  
+  y <- as.numeric(strsplit(x, "")[[1]])
+  sum(y * base^rev((seq_along(y)-1)))
+}
+
+
+id_maker <- function(type, partner, region){
+  # makes a unique 12 digit, base 36 ID
+  # type, partner, region are all int, returns a string
+  
+  # makes string without parity bit
+  bin_str <- paste("0", 
+                   intToBin(type, 4), 
+                   intToBin(partner, 7), 
+                   intToBin(region, 8), sep = "")
+  
+  sum_bin_str <- sum(as.numeric(strsplit(bin_str, "")[[1]]))
+  
+  # adds partiy bit to end
+  if((sum_bin_str %% 2) == 0) {
+    parity_bit <- 1
+  } else {
+    parity_bit <- 0
+  }
+  
+  bin_str <- paste(bin_str, parity_bit, sep="")
+  
+  # encodes type, partner, region in 4 digit base 36
+  encode <- intToBase35p1(convert(bin_str, base=2L))
+  
+  # converts time to num
+  time_num <- format(round(as.numeric(Sys.time())*1000, 13), scientific = FALSE)
+
+  # converts time_num to 8 digit base 36
+  time_id <- intToBase35p1(convert(time_num, base=10L))
+  
+  return(paste(encode, time_id, sep="-"))
+}
