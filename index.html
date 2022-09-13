@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <script>
-        alert("hello")
-    </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Policy Encoder</title>
+  </head>
+  <body>
+    <div>
+    <h1><strong>Encoder</strong></h1>
+      <label for="type">Type Value:</label>
+      <input id="type" />
+
+      <label for="partner">Partner Value:</label>
+      <input id="partner" />
+
+      <label for="region">Region Value:</label>
+      <input id="region" />
+
+      <button onclick="id_maker()">Encode!</button>
+
+      <p class="output1" id="output1"></p>
+    </div>
+
+    <div>
+        <h1><strong>Decoder</strong></h1>
+        <label for="policy-number">Policy Number:</label>
+        <input type="string" id="policy-number">
+
+        <button onclick="id_decoder()">Decode Policy Number</button>
+        <p class="ouput2" id="output2"></p>
+        <p class="ouput3" id="output3"></p>
+        <p class="ouput4" id="output4"></p>
+    </div>
+
+    <script src="./scripts/encoder.js"></script>
+    <script src="./scripts/decoder.js"></script>
+  </body>
 </html>
