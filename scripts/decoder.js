@@ -1,15 +1,24 @@
 function base35_to_int(x) {
     var num_let = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     var result = [];
-    //upcase when decoding string
-    for (var i = 0; i < x.length; i++) {
+    var upper_x = x.toUpperCase()
+
+    for (var i = 0; i < upper_x.length; i++) {
         
-        var char_pos = num_let.search(x.slice(i, i+1));
+        var char_pos = num_let.search(upper_x.slice(i, i+1));
         result.push(num_let.slice(char_pos - 1, char_pos));
       }
 
     //convert to base 10
     return parseInt(result.join(''), 35);
+}
+
+function bin_length_helper(x, bits) {
+    //adds zeros to front of strings to get desired length 
+    var add_zeros = Math.abs(bits - x.length);
+    var y = "0".repeat(add_zeros);
+
+    return y + x;
 }
 
 function id_decoder(x) {
@@ -31,14 +40,6 @@ function id_decoder(x) {
     var region = parseInt(policy_bin_full.slice(type_bit + partner_bit, type_bit + partner_bit + region_bit), 2);
 
     return [type, partner, region];
-}
-
-function bin_length_helper(x, bits) {
-    //adds zeros to front of strings to get desired length 
-    var add_zeros = Math.abs(bits - x.length);
-
-    var y = "0".repeat(add_zeros);
-    return y + x;
 }
 
 //2JX6-QUOB5K7V
