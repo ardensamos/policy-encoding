@@ -19,7 +19,7 @@ function base35_to_int(x) {
 
 function id_decoder() {
 
-    const x = document.getElementById("policy-number").value;
+  const x = document.getElementById("policy-number").value;
   const type_bit = 4;
   const partner_bit = 7;
   const region_bit = 8;
@@ -52,9 +52,9 @@ function id_decoder() {
     );
   } else {
     // if the sum of the digits is even, some error has occured
-    var type = "Check sum failed"
-    var partner = "Please check if the policy number was inputted correctly"
-    var region = ""
+    var type = "Check sum failed";
+    var partner = "Please check if the policy number was inputted correctly";
+    var region = "";
   }
 
   //return [type, partner, region];
