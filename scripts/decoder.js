@@ -36,18 +36,26 @@ function id_decoder() {
     type_bit + partner_bit + region_bit + 1
   );
 
-  var type = parseInt(policy_bin_full.slice(0, type_bit), 2);
-  var partner = parseInt(
-    policy_bin_full.slice(type_bit, type_bit + partner_bit),
-    2
-  );
-  var region = parseInt(
-    policy_bin_full.slice(
-      type_bit + partner_bit,
-      type_bit + partner_bit + region_bit
-    ),
-    2
-  );
+  if (sumStr(policy_bin_full) % 2) {
+    // if the sum of the digits is odd, decode the number
+    var type = parseInt(policy_bin_full.slice(0, type_bit), 2);
+    var partner = parseInt(
+      policy_bin_full.slice(type_bit, type_bit + partner_bit),
+      2
+    );
+    var region = parseInt(
+      policy_bin_full.slice(
+        type_bit + partner_bit,
+        type_bit + partner_bit + region_bit
+      ),
+      2
+    );
+  } else {
+    // if the sum of the digits is even, some error has occured
+    var type = "Check sum failed"
+    var partner = "Please check if the policy number was inputted correctly"
+    var region = ""
+  }
 
   //return [type, partner, region];
   out2.innerHTML = "type value: " + type;
@@ -61,6 +69,15 @@ function bin_length_helper(x, bits) {
 
   var y = "0".repeat(add_zeros);
   return y + x;
+}
+
+function sumStr(str) {
+  //fucntion used to compute the sum of the binary string for parity validation
+  let strArr = str.split("");
+  let sum = strArr.reduce(function (total, num) {
+    return parseFloat(total) + parseFloat(num);
+  });
+  return sum;
 }
 
 //2JX6-QUOB5K7V
