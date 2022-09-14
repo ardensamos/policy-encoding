@@ -1,6 +1,6 @@
-// const out2 = document.getElementById("output2");
-// const out3 = document.getElementById("output3");
-// const out4 = document.getElementById("output4");
+const out2 = document.getElementById("output2");
+const out3 = document.getElementById("output3");
+const out4 = document.getElementById("output4");
 
 function base35_to_int(x) {
   var num_let = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -17,9 +17,8 @@ function base35_to_int(x) {
   return parseInt(result.join(""), 35);
 }
 
-function id_decoder(x) {
-  
-  // const x = document.getElementById("policy-number").value;
+function id_decoder() {
+  const x = document.getElementById("policy-number").value;
   const type_bit = 4;
   const partner_bit = 7;
   const region_bit = 8;
@@ -58,9 +57,9 @@ function id_decoder(x) {
   }
 
   //return [type, partner, region];
-  //out2.innerHTML = "type value: " + type;
-  //out3.innerHTML = "partner value: " + partner;
-  //out4.innerHTML = "region value: " + region;
+  out2.innerHTML = "type value: " + type;
+  out3.innerHTML = "partner value: " + partner;
+  out4.innerHTML = "region value: " + region;
 }
 
 function bin_length_helper(x, bits) {
@@ -80,6 +79,5 @@ function sumStr(str) {
   return sum;
 }
 
-id_decoder("FUCK");
 //2JX6-QUOB5K7V
 //console.log(id_decoder("P4L2-QUOBUDN2"));
