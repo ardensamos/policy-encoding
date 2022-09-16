@@ -1,4 +1,4 @@
-function intToBase35p1(x) {
+function intToBase35p1(x, len) {
   //converts a base 10 number to base 35, then increments by 1 (avoid zero/O confusion)
 
   const num = Array.from(Array(10).keys()).map(String);
@@ -54,7 +54,12 @@ function intToBase35p1(x) {
     x = Math.floor(x / 35);
   }
 
-  return result.join("");
+  result = result.join("")
+
+  //leading 1s (0 plus increment) in case the base 35 result is shorter than 4 characters
+  result = "1".repeat(Math.abs(len - result.length)) + result
+
+  return result;
 }
 
 function id_maker() {
@@ -67,12 +72,14 @@ function id_maker() {
   const type_bit = 4;
   const partner_bit = 7;
   const region_bit = 8;
+  const encode_len = 4;
+  const time_len = 8
   const d = new Date();
 
   //convert to binary
-  var type_bin = bin_length_helper(type.toString(2), type_bit);
-  var partner_bin = bin_length_helper(partner.toString(2), partner_bit);
-  var region_bin = bin_length_helper(region.toString(2), region_bit);
+  var type_bin = bin_length_helper((type - 1).toString(2), type_bit);
+  var partner_bin = bin_length_helper((partner - 1).toString(2), partner_bit);
+  var region_bin = bin_length_helper((region - 1).toString(2), region_bit);
 
   var bin_str = type_bin + partner_bin + region_bin;
 
@@ -83,10 +90,10 @@ function id_maker() {
     bin_str = bin_str + "1";
   }
 
-  var encode = intToBase35p1(parseInt(bin_str, 2));
+  var encode = intToBase35p1(parseInt(bin_str, 2), encode_len);
 
   var time_num = d.getTime();
-  var time_encode = intToBase35p1(time_num);
+  var time_encode = intToBase35p1(time_num, time_len);
 
   //return encode + "-" + time_encode;
   out1.innerHTML = encode + "-" + time_encode;

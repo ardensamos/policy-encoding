@@ -38,18 +38,18 @@ function id_decoder() {
 
   if (sumStr(policy_bin_full) % 2) {
     // if the sum of the digits is odd, decode the number
-    var type = parseInt(policy_bin_full.slice(0, type_bit), 2);
+    var type = parseInt(policy_bin_full.slice(0, type_bit), 2) + 1;
     var partner = parseInt(
       policy_bin_full.slice(type_bit, type_bit + partner_bit),
       2
-    );
+    ) + 1;
     var region = parseInt(
       policy_bin_full.slice(
         type_bit + partner_bit,
         type_bit + partner_bit + region_bit
       ),
       2
-    );
+    ) + 1;
   } else {
     // if the sum of the digits is even, some error has occured
     var type = "Check sum failed";
