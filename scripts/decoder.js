@@ -18,8 +18,8 @@ function base35_to_int(x) {
 }
 
 function id_decoder() {
-  const y = document.getElementById("policy-number").value;
-  x = y.replace(/0/g, "O");
+  const x = document.getElementById("policy-number").value;
+  x = x.replace(/0/g, "O");
 
   const type_bit = 4;
   const partner_bit = 7;
