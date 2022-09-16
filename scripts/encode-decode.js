@@ -48,7 +48,7 @@ function id_encoder() {
 function id_decoder() {
     // Fetch user inputted policy number, replace any zeroes with O's
     var x = document.getElementById("policy-number").value;
-    x = x.replace(/0/g, "O");
+    x = x.toString().replace(/0/g, "O");
 
     // Define outputs for HTML page
     const out2 = document.getElementById("output2");
@@ -75,7 +75,7 @@ function id_decoder() {
     if (sumStr(policy_bin_full) % 2) {
         var type = parseInt(policy_bin_full.slice(0, type_bit), 2) + 1;
         var partner = parseInt(policy_bin_full.slice(type_bit, type_bit + partner_bit),2) + 1;
-        var region = parseInt(policy_bin_full.slice(type_bit + partner_bit,type_bit + partner_bit + region_bin),2) + 1;
+        var region = parseInt(policy_bin_full.slice(type_bit + partner_bit,type_bit + partner_bit + region_bit),2) + 1;
     } else { // If the sum of the digits is even, the number fails the parity test and an error message is returned
         var type = "Check sum failed";
         var partner = "Please check if the policy number was inputted correctly";
@@ -152,3 +152,5 @@ function bin_length_helper(x, bits) {
     var y = "0".repeat(add_zeros);
     return y + x;
 }
+
+console.log(id_decoder("L1XV-QUUU4U4R"));
