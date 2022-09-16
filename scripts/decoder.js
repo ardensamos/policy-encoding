@@ -55,7 +55,7 @@ function id_decoder() {
     // if the sum of the digits is even, some error has occured
     var type = "Check sum failed";
     var partner = "Please check if the policy number was inputted correctly";
-    var region = "";
+    var region = "Branch: 0toO";
   }
 
   //return [type, partner, region];
