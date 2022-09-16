@@ -9,16 +9,16 @@
   <body>
     <div>
     <h1><strong>Encoder</strong></h1>
-      <label for="type">Type Value:</label>
+      <label for="type">Type Value (1-16):</label>
       <input id="type" />
 
-      <label for="partner">Partner Value:</label>
+      <label for="partner">Partner Value (1-128):</label>
       <input id="partner" />
 
-      <label for="region">Region Value:</label>
+      <label for="region">Region Value (1-256):</label>
       <input id="region" />
 
-      <button onclick="id_maker()">Encode!</button>
+      <button onclick="id_encoder()">Encode!</button>
 
       <p class="output1" id="output1"></p>
     </div>
@@ -34,7 +34,6 @@
         <p class="ouput4" id="output4"></p>
     </div>
 
-    <script src="./scripts/encoder.js"></script>
-    <script src="./scripts/decoder.js"></script>
+    <script src="./scripts/encode-decode.js"></script>
   </body>
 </html>
