@@ -19,6 +19,8 @@ function base35_to_int(x) {
 
 function id_decoder() {
   const x = document.getElementById("policy-number").value;
+  x = x.replace(/0/g, "O");
+
   const type_bit = 4;
   const partner_bit = 7;
   const region_bit = 8;
@@ -53,7 +55,7 @@ function id_decoder() {
     // if the sum of the digits is even, some error has occured
     var type = "Check sum failed";
     var partner = "Please check if the policy number was inputted correctly";
-    var region = "";
+    var region = "Branch: 0toO";
   }
 
   //return [type, partner, region];
