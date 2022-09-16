@@ -18,7 +18,8 @@ function base35_to_int(x) {
 }
 
 function id_decoder() {
-  const x = document.getElementById("policy-number").value;
+  var x = document.getElementById("policy-number").value;
+  x = x.replace(/0/g, "O");
   const type_bit = 4;
   const partner_bit = 7;
   const region_bit = 8;
@@ -80,4 +81,4 @@ function sumStr(str) {
 }
 
 //2JX6-QUOB5K7V
-//console.log(id_decoder("P4L2-QUOBUDN2"));
+//console.log(id_decoder("B0RG"));
