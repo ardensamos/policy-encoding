@@ -17,32 +17,40 @@ function id_encoder() {
     // Create a Date object to generate the time later
     const d = new Date();
 
-    // Convert the inputted type, partner, and region numbers to binary
-    // Since we are operating on a counting system that starts with 1, we need to subtract each inputted number by 1
-    // So type = 1 corresponds to the binary number 0000, ..., type = 16 corresponds to the binary number 1111
-    var type_bin = bin_length_helper((type - 1).toString(2), type_bit);
-    var partner_bin = bin_length_helper((partner - 1).toString(2), partner_bit);
-    var region_bin = bin_length_helper((region - 1).toString(2), region_bit);
-
-    // Concatenate the binary strings together to get the policy number in binary, minus its parity bit
-    var bin_str = type_bin + partner_bin + region_bin;
- 
-    // Calculate the odd parity bit and add it to the end of the string
-    if (sumStr(bin_str) % 2) {
-        bin_str = bin_str + "0";
+    // Ensures the inputs are within expected bounds
+    if (!(0 < type && type <= Math.pow(2,type_bit) && 
+        0 < partner && partner <= Math.pow(2,partner_bit) && 
+        0 < region && region <= Math.pow(2,region_bit))) {
+            out1.innerHTML = "Input is out of bounds.";
     } else {
-        bin_str = bin_str + "1";
+        
+        // Convert the inputted type, partner, and region numbers to binary
+        // Since we are operating on a counting system that starts with 1, we need to subtract each inputted number by 1
+        // So type = 1 corresponds to the binary number 0000, ..., type = 16 corresponds to the binary number 1111
+        var type_bin = bin_length_helper((type - 1).toString(2), type_bit);
+        var partner_bin = bin_length_helper((partner - 1).toString(2), partner_bit);
+        var region_bin = bin_length_helper((region - 1).toString(2), region_bit);
+
+        // Concatenate the binary strings together to get the policy number in binary, minus its parity bit
+        var bin_str = type_bin + partner_bin + region_bin;
+    
+        // Calculate the odd parity bit and add it to the end of the string
+        if (sumStr(bin_str) % 2) {
+            bin_str = bin_str + "0";
+        } else {
+            bin_str = bin_str + "1";
+        }
+
+        // Convert the binary policy number to modified base 35
+        var encode = intToBase35p1(parseInt(bin_str, 2), encode_len);
+
+        // Take the current time in milliseconds, and convert it to modified base 35
+        var time_num = d.getTime();
+        var time_encode = intToBase35p1(time_num, time_len);
+    
+        // Return the final encoded policy number
+        out1.innerHTML = encode + "-" + time_encode;
     }
-
-    // Convert the binary policy number to modified base 35
-    var encode = intToBase35p1(parseInt(bin_str, 2), encode_len);
-
-    // Take the current time in milliseconds, and convert it to modified base 35
-    var time_num = d.getTime();
-    var time_encode = intToBase35p1(time_num, time_len);
-  
-    // Return the final encoded policy number
-    out1.innerHTML = encode + "-" + time_encode;
 }
 
 function id_decoder() {
