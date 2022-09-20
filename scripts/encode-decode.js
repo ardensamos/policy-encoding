@@ -79,8 +79,18 @@ function id_decoder() {
     // The standard length is equal to the length of the type, partner, and region portions, plus an additional digit for the parity bit
     var policy_bin_full = bin_length_helper(policy_bin, type_bit + partner_bit + region_bit + 1);
 
-    // If the sum of the digits in the binary number is odd, the number passes the parity test and is decoded
-    if (sumStr(policy_bin_full) % 2) {
+    
+    if (x==="") { // Returns blank on expty input
+        var type = "";
+        var partner = "";
+        var region = "";
+    }
+    else if (policy.length!==4) { // Returns error if policy ID is not 4 digits
+        var type = "Incorrect policy number";
+        var partner = "Please check if the policy number was inputted correctly";
+        var region = "";
+    }
+    else if (sumStr(policy_bin_full) % 2) { // If the sum of the digits in the binary number is odd, the number passes the parity test and is decoded
         var type = parseInt(policy_bin_full.slice(0, type_bit), 2) + 1;
         var partner = parseInt(policy_bin_full.slice(type_bit, type_bit + partner_bit),2) + 1;
         var region = parseInt(policy_bin_full.slice(type_bit + partner_bit,type_bit + partner_bit + region_bit),2) + 1;
