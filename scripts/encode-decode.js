@@ -85,7 +85,7 @@ function id_decoder() {
         var partner = "";
         var region = "";
     }
-    else if (policy.length!==4 || policy.length!==13) { // Returns error if policy ID is not 4 digits (only the policy part) or 13 digits (the whole identifier, including time)
+    else if (policy.length!==4 && policy.length!==13) { // Returns error if policy ID is not 4 digits (only the policy part) or 13 digits (the whole identifier, including time)
         var type = "Invalid policy number format";
         var partner = "Please check if the policy number was inputted correctly";
         var region = "A policy number should either have the format XXXX or XXXX-XXXXXXXX";
