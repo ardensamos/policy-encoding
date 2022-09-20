@@ -85,10 +85,10 @@ function id_decoder() {
         var partner = "";
         var region = "";
     }
-    else if (policy.length!==4) { // Returns error if policy ID is not 4 digits
-        var type = "Incorrect policy number";
+    else if (policy.length!==4 || policy.length!==13) { // Returns error if policy ID is not 4 digits (only the policy part) or 13 digits (the whole identifier, including time)
+        var type = "Invalid policy number format";
         var partner = "Please check if the policy number was inputted correctly";
-        var region = "";
+        var region = "A policy number should either have the format XXXX or XXXX-XXXXXXXX";
     }
     else if (sumStr(policy_bin_full) % 2) { // If the sum of the digits in the binary number is odd, the number passes the parity test and is decoded
         var type = parseInt(policy_bin_full.slice(0, type_bit), 2) + 1;
