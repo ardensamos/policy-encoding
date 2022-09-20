@@ -79,17 +79,23 @@ function id_decoder() {
     // The standard length is equal to the length of the type, partner, and region portions, plus an additional digit for the parity bit
     var policy_bin_full = bin_length_helper(policy_bin, type_bit + partner_bit + region_bit + 1);
 
+    // Regex used to validate format of input
+    // This expression basically says "precisely four alphanumeric characters (where letters are uppercase), with the option of having
+    // that be followed by a dash, and precisely eight alphanumeric characters (uppercase letters)"
+    // In other words, the input should either be the first part of a full policy number (the bit with the information)
+    // Or the full policy number (including the timestamp)
+    const regex = /^[0-9A-Z]{4}(|-[0-9A-Z]{8})$/;
     
-    if (x==="") { // Returns blank on expty input
+    if (x==="") { // Returns blank on empty input
         var type = "";
         var partner = "";
         var region = "";
     }
-    // Returns error if policy ID is not 4 digits (only the policy part) or 13 digits (the whole identifier, including time)
-    else if (!(x.length===4 || policy.length===4 && time_id.length===8 && x.length===13)) {
+    // Returns error if policy ID does not match the format prescribed in the regex above
+    else if (!regex.test(x)) {
         var type = "Invalid policy number format";
-        var partner = "Please check if the policy number was inputted correctly";
-        var region = "A policy number should either have the format XXXX or XXXX-XXXXXXXX";
+        var partner = "A policy number should either have the format XXXX or XXXX-XXXXXXXX";
+        var region = "Where each digit is a number (1-9) or an uppercase letter (A-Z)";
     }
     else if (sumStr(policy_bin_full) % 2) { // If the sum of the digits in the binary number is odd, the number passes the parity test and is decoded
         var type = parseInt(policy_bin_full.slice(0, type_bit), 2) + 1;
