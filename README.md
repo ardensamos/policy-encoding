@@ -4,7 +4,7 @@
 To generate and decode policy numbers based on a given set of type, partner, and region
 
 ##Helper Functions <a name='Helper Functions'></a>
-###sumStr()
+###`sumStr()`
 Utilized for encoding and decoding policy numbers. Takes in said policy number to validate parity by summing binary digits. 
 
 ###`bin_length_helper()`
