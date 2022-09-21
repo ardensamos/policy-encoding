@@ -34,4 +34,4 @@ Converts the encoded policy portion from base 35 to base 2 by utilizing the `bas
 If the modified policy portion is validated against the parity (sum of digits equate an odd value), then decoding begins. 
 
 # Live Site 
-Test site: https://ardensamos.github.io/policy-encoding/- [policy-encoding](#policy-encoding)
+Test site: [https://ardensamos.github.io/policy-encoding/-[policy-encoding]](https://ardensamos.github.io/policy-encoding/)
