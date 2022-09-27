@@ -57,6 +57,7 @@ function id_decoder() {
     // Fetch user inputted policy number, replace any zeroes with O's
     var x = document.getElementById("policy-number").value;
     x = x.toString().replace(/0/g, "O");
+    x = x.toUpperCase();
 
     // Define outputs for HTML page
     const out2 = document.getElementById("output2");
