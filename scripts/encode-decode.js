@@ -47,9 +47,24 @@ function id_encoder() {
         // Take the current time in milliseconds, and convert it to modified base 35
         var time_num = d.getTime();
         var time_encode = intToBase35p1(time_num, time_len);
-    
+
+        var append = "";
+        // Append partner specific digits, if necessary
+        if (region == 1 && partner == 1) {
+            if (type == 1) {
+                append = "BC07423";
+            } else if (type == 2) {
+                append = "BC07474";
+            }
+        }
+
+        // If there is something to append, add a dash to the front of it
+        if (append) {
+            append = "-" + append;
+        }
+
         // Return the final encoded policy number
-        out1.innerHTML = encode + "-" + time_encode;
+        out1.innerHTML = encode + "-" + time_encode + append;
     }
 }
 
@@ -81,8 +96,9 @@ function id_decoder() {
     var policy_bin_full = bin_length_helper(policy_bin, type_bit + partner_bit + region_bit + 1);
 
     // Regex used to validate format of input
-    // This expression basically says "precisely four alphanumeric characters (where letters are uppercase), with the option of having
-    // that be followed by a dash, and precisely eight alphanumeric characters (uppercase letters)"
+    // This expression basically says "Precisely four alphanumeric characters (where letters are uppercase), with the option of having
+    // that be followed by a dash, and precisely eight alphanumeric characters (uppercase letters). If the eight alphanumeric characters
+    // are there, there is also the option of having another dash, and another alphanumeric block of undefined length (policy specific codes)"
     // In other words, the input should either be the first part of a full policy number (the bit with the information)
     // Or the full policy number (including the timestamp)
     const regex = /^[0-9A-Z]{4}(|-[0-9A-Z]{8}(|-[0-9A-Z]+))$/;
