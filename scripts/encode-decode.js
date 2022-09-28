@@ -85,7 +85,7 @@ function id_decoder() {
     // that be followed by a dash, and precisely eight alphanumeric characters (uppercase letters)"
     // In other words, the input should either be the first part of a full policy number (the bit with the information)
     // Or the full policy number (including the timestamp)
-    const regex = /^[0-9A-Z]{4}(|-[0-9A-Z]{8})$/;
+    const regex = /^[0-9A-Z]{4}(|-[0-9A-Z]{8}(|-[0-9A-Z]+))$/;
     
     if (x==="") { // Returns blank on empty input
         var type = "";
