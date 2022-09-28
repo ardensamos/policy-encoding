@@ -1,3 +1,7 @@
+const map = new Map();
+map.set("111", "BC07423");
+map.set("211", "BC07474");
+
 function id_encoder() {
     // Fetch user inputted paramaters from HTML page
     const type = +document.getElementById("type").value;
@@ -48,19 +52,11 @@ function id_encoder() {
         var time_num = d.getTime();
         var time_encode = intToBase35p1(time_num, time_len);
 
-        var append = "";
         // Append partner specific digits, if necessary
-        if (region == 1 && partner == 1) {
-            if (type == 1) {
-                append = "BC07423";
-            } else if (type == 2) {
-                append = "BC07474";
-            }
-        }
-
-        // If there is something to append, add a dash to the front of it
-        if (append) {
-            append = "-" + append;
+        var append = "";
+        var concat = "" + type + partner + region; // Concatenate the type, partner, and region numbers together
+        if (map.has(concat)) { // If this string is found in the map that contains special codes to be appended, find it
+            append = "-" + map.get(concat);
         }
 
         // Return the final encoded policy number
@@ -195,4 +191,4 @@ function bin_length_helper(x, bits) {
     return y + x;
 }
 
-console.log(id_decoder("L1XV-QUUU4U4R"));
+// console.log(id_decoder("L1XV-QUUU4U4R"));
