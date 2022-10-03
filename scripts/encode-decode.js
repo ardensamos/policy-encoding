@@ -1,6 +1,6 @@
 const map = new Map();
-map.set("111", "BC07423");
-map.set("211", "BC07474");
+map.set("1-1-1", "BC07423");
+map.set("2-1-1", "BC07474");
 
 function id_encoder() {
     // Fetch user inputted paramaters from HTML page
@@ -54,7 +54,7 @@ function id_encoder() {
 
         // Append partner specific digits, if necessary
         var append = "";
-        var concat = "" + type + partner + region; // Concatenate the type, partner, and region numbers together
+        var concat = "" + type + "-" + partner + "-" + region; // Concatenate the type, partner, and region numbers together
         if (map.has(concat)) { // If this string is found in the map that contains special codes to be appended, find it
             append = "-" + map.get(concat);
         }
