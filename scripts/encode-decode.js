@@ -1,3 +1,4 @@
+// This map is used to store the codes that should be appended to specific policy numbers
 const map = new Map();
 map.set("1-1-1", "BC07423");
 map.set("2-1-1", "BC07474");
